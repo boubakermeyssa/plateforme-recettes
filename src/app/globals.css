@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fond: #F8F4EF;
+  --color-texte: #24302A;
+  --color-texte-2: #5F6B64;
+  --color-sauge: #4F7A5A;
+  --color-sauge-fonce: #3B5F45;
+  --color-sauge-clair: #EAF2EB;
+  --color-peche: #E8A38C;
+  --color-peche-clair: #FDF1EC;
+  --color-piste: #F0E2D8;
+  --color-alerte-fond: #FDF0E8;
+  --color-alerte-texte: #7A3E1F;
+  --color-alerte-icone: #C2643A;
+  --color-limite: #A65F00;
+  --color-interdit: #B42318;
+
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-carte: 20px;
+  --radius-bloc: 24px;
+
+  --shadow-carte: 0 6px 20px rgba(79, 122, 90, 0.08);
+  --shadow-bouton: 0 10px 24px rgba(79, 122, 90, 0.25);
+}
+
+body {
+  background: var(--color-fond);
+  color: var(--color-texte);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-peche);
+  outline-offset: 2px;
+}

@@ -1,0 +1,66 @@
+{
+  "name": "TP n8n error handling",
+  "nodes": [
+    {
+      "parameters": {
+        "sendTo": "aminekhouakhi01@gmail.com",
+        "subject": "=⚠️ Échec du workflow : {{ $json.workflow.name }}",
+        "emailType": "text",
+        "message": "=Le workflow « {{ $json.workflow.name }} » a échoué.\n\nNœud en erreur : {{ $json.execution.lastNodeExecuted }}\nErreur : {{ $json.execution.error.message }}\n\nVoir l'exécution : {{ $json.execution.url }}",
+        "options": {}
+      },
+      "name": "Gmail - Alerte erreur",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        64
+      ],
+      "webhookId": "0e4ef613-6090-4487-ae06-083ca5979d69",
+      "id": "5c41cd9d-13bd-4a32-9428-dfead38edd90",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "LbEClBgn7kIX8vEy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        64
+      ],
+      "name": "Error Trigger",
+      "id": "289f62a8-372f-43e7-8860-f3fba4550197"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Alerte erreur",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5e3ad8fa-aa3c-4718-9e7c-8ae8649c1b8a",
+  "meta": {
+    "instanceId": "e3a4ac61be07d11ebf77f1bed989b61b6cb00cba4ba9ff1f6a6334877eebe5ca"
+  },
+  "nodeGroups": [],
+  "id": "3Fs36T3A4dwXEGRx",
+  "tags": []
+}
