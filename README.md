@@ -51,4 +51,5 @@ Variables à définir dans Vercel (Settings → Environment Variables) : `NEXT_P
 | 1.4 Poids, taille et consentement | 🔄 en revue (branche) |
 | 1.5 Contraintes, goûts et mode de vie | 🔄 en revue (branche) |
 | 1.6 Mon profil et suppression du compte | 🔄 en revue (branche) |
-| 1.7 Déploiement Vercel | 🔄 en revue (branche) |
+| 1.7 Déploiement Vercel | 🔄 en cours (production vérifiée, redirection et E2E à valider) |
+| 2.1 Import de la fiche nutritionniste | 🔄 en revue (migration Storage à appliquer et tester) |
