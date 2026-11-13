@@ -82,10 +82,15 @@ export async function enregistrerEtape5(donnees: Etape5): Promise<Resultat & { s
   const { supabase, user } = await session();
   const { data, error } = await supabase
     .from("profils")
-    .update({ ...profil, onboarding_termine: true })
+    .update({ ...profil, onboarding_termine: false })
     .eq("id", user!.id)
     .select("type_profil")
     .single();
   if (error) return { ok: false, erreur: "Enregistrement impossible, réessaie." };
-  return { ok: true, suivi: data.type_profil === "suivi" };
+  const suivi = data.type_profil === "suivi";
+  if (!suivi) {
+    const { error: erreurFin } = await supabase.from("profils").update({ onboarding_termine: true }).eq("id", user!.id);
+    if (erreurFin) return { ok: false, erreur: "Enregistrement impossible, réessaie." };
+  }
+  return { ok: true, suivi };
 }

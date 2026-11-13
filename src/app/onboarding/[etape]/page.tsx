@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ProgressHeader } from "@/components/onboarding/ProgressHeader";
 import { Etape1Form } from "@/components/onboarding/Etape1Form";
@@ -6,6 +6,7 @@ import { Etape2Form } from "@/components/onboarding/Etape2Form";
 import { Etape3Form } from "@/components/onboarding/Etape3Form";
 import { Etape4Form } from "@/components/onboarding/Etape4Form";
 import { Etape5Form } from "@/components/onboarding/Etape5Form";
+import { Etape6Form } from "@/components/onboarding/Etape6Form";
 import { chargerContraintes, chargerEtape5 } from "@/lib/profil";
 
 const TEXTES: Record<number, { titre: string; sousTitre: string }> = {
@@ -14,6 +15,7 @@ const TEXTES: Record<number, { titre: string; sousTitre: string }> = {
   3: { titre: "Ton point de départ", sousTitre: "Optionnel. Ça nous aide à ajuster les portions, rien de plus." },
   4: { titre: "Ce que tu ne manges pas", sousTitre: "Les recettes avec ces aliments seront exclues." },
   5: { titre: "Tes goûts, ton quotidien", sousTitre: "Pour des recettes que tu as vraiment envie de cuisiner." },
+  6: { titre: "Ta fiche nutritionniste", sousTitre: "Importe le document de ton ou ta nutritionniste dans un espace privé." },
 };
 
 export default async function EtapeOnboarding({ params }: { params: Promise<{ etape: string }> }) {
@@ -25,6 +27,7 @@ export default async function EtapeOnboarding({ params }: { params: Promise<{ et
     data: { user },
   } = await supabase.auth.getUser();
   const { data: p } = await supabase.from("profils").select("*").eq("id", user!.id).single();
+  if (etape === 6 && p?.type_profil !== "suivi") redirect("/recettes");
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-[480px] flex-col px-6 pb-8 pt-6">
@@ -51,6 +54,7 @@ export default async function EtapeOnboarding({ params }: { params: Promise<{ et
       )}
       {etape === 4 && <Etape4Form initial={await chargerContraintes(supabase, user!.id)} />}
       {etape === 5 && <Etape5Form initial={await chargerEtape5(supabase, user!.id, p)} />}
+      {etape === 6 && <Etape6Form />}
     </main>
   );
 }
